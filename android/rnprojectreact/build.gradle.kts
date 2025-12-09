@@ -95,3 +95,21 @@ tasks.register("removeDependenciesFromModuleFile") {
 tasks.named("generateMetadataFileForMavenAarPublication") {
    finalizedBy("removeDependenciesFromModuleFile")
 }
+
+/**
+ * Fix task dependency issues where library tasks try to use
+ * output from app's createBundleReleaseJsAndAssets task
+ */
+afterEvaluate {
+    val appBundleTask = project.parent?.project(":app")?.tasks?.findByName("createBundleReleaseJsAndAssets")
+    if (appBundleTask != null) {
+        tasks.matching {
+            it.name.startsWith("generateDebugResources") ||
+            it.name.startsWith("extractDeepLinksForAar") ||
+            it.name.startsWith("generate") ||
+            it.name.startsWith("process")
+        }.configureEach {
+            mustRunAfter(appBundleTask)
+        }
+    }
+}

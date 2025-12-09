@@ -21,9 +21,48 @@ yarn package:ios
 ```
 
 This command outputs 3 XCFrameworks that can be embedded in another iOS project:
+
 - React Native core framework
 - JavaScript bundle
 - Additional dependencies
+
+## Building Android AAR
+
+To package the project for Android integration, run:
+
+```bash
+yarn package:aar
+```
+
+The generated AAR will be available at:
+
+```
+android/rnprojectreact/build/outputs/aar/rnprojectreact-release.aar
+```
+
+### Publishing to Maven Local
+
+To publish the AAR to your local Maven repository for use in other Android projects:
+
+```bash
+yarn rock publish-local:aar --module-name rnprojectreact
+```
+
+Then add the dependency to your Android app's `build.gradle`:
+
+```gradle
+dependencies {
+    implementation("com.rnprojectreact:rnproject:0.0.1-local")
+}
+```
+
+### Configuration
+
+If you need to specify a custom Node.js path, add it to `android/local.properties`:
+
+```properties
+react.nodeExecutableAndArgs=/path/to/node
+```
 
 ## Integration
 
@@ -51,3 +90,4 @@ yarn android
 
 - [Rock Framework Documentation](https://www.rockjs.dev/)
 - [Brownfield iOS Integration Guide](https://www.rockjs.dev/docs/brownfield/ios)
+- [Brownfiels Android Integration Guide](https://www.rockjs.dev/docs/brownfield/android)
