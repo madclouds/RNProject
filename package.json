@@ -10,10 +10,11 @@
     "android": "rock run:android",
     "package:ios": "rock package:ios --scheme RNProjectReact --configuration Release",
     "package:aar": "rock package:aar --variant Release --module-name rnprojectreact",
-    "publish-local:aar": "pnpm package:aar && rock publish-local:aar --module-name rnprojectreact"
+    "publish-local:aar": "yarn package:aar && rock publish-local:aar --module-name rnprojectreact"
   },
   "dependencies": {
     "@callstack/react-native-brownfield": "^2.0.0",
+    "@react-native-community/datetimepicker": "7.6.2",
     "react": "19.1.0",
     "react-native": "0.81.1"
   },
